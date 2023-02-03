@@ -20,6 +20,7 @@ export class Client {
 
     /**
      * Get a list of the public Y Combinator companies in the [Directory](https://www.ycombinator.com/companies).
+     * @throws {YcombinatorApi.RateLimitError}
      */
     public async getAllCompanies(): Promise<YcombinatorApi.AllCompanies> {
         const _response = await core.fetcher({
@@ -31,10 +32,15 @@ export class Client {
         }
 
         if (_response.error.reason === "status-code") {
-            throw new errors.YcombinatorApiError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-            });
+            switch (_response.error.statusCode) {
+                case 429:
+                    throw new YcombinatorApi.RateLimitError();
+                default:
+                    throw new errors.YcombinatorApiError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
         }
 
         switch (_response.error.reason) {

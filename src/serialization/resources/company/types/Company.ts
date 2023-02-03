@@ -23,7 +23,7 @@ export const Company: core.serialization.ObjectSchema<serializers.Company.Raw, Y
         industries: core.serialization.list(core.serialization.string()),
         regions: core.serialization.list(core.serialization.string()),
         locations: core.serialization.list(core.serialization.string()),
-        badges: core.serialization.list(core.serialization.unknown()),
+        badges: core.serialization.list(core.serialization.string()),
     });
 
 export declare namespace Company {
@@ -43,6 +43,6 @@ export declare namespace Company {
         industries: string[];
         regions: string[];
         locations: string[];
-        badges: unknown[];
+        badges: string[];
     }
 }

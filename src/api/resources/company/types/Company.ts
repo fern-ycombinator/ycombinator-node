@@ -18,5 +18,5 @@ export interface Company {
     industries: string[];
     regions: string[];
     locations: string[];
-    badges: unknown[];
+    badges: string[];
 }
