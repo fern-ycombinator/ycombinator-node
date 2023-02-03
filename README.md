@@ -13,9 +13,13 @@ API reference documentation is available [here](https://api.ycombinator.com/v0.1
 [![Try it out](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/typescript-example-using-sdk-built-with-fern-nbxn2m?file=app.ts&view=editor)
 
 ```typescript
-import { TODO } from "TODO";
+import { YcombinatorApiClient } from '@fern-api/ycombinator';
 
-const TODO
+const client = new YcombinatorApiClient({});
+
+const response = await client.company.getAllCompanies();
+
+console.log('Since 2005, we have invested in over 3,500 companies. Here they are:', response);
 ```
 
 ## Beta status
