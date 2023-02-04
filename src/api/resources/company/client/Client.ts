@@ -22,10 +22,76 @@ export class Client {
      * Get a list of the public Y Combinator companies in the [Directory](https://www.ycombinator.com/companies).
      * @throws {YcombinatorApi.RateLimitError}
      */
-    public async getAllCompanies(): Promise<YcombinatorApi.AllCompanies> {
+    public async getAllCompanies(
+        request: YcombinatorApi.GetAllCompaniesRequest = {}
+    ): Promise<YcombinatorApi.AllCompanies> {
+        const {
+            page,
+            q,
+            batch,
+            status,
+            industry,
+            region,
+            tags,
+            isHiring,
+            nonprofit,
+            highlightBlack,
+            highlightLatinx,
+            highlightWomen,
+        } = request;
+        const _queryParams = new URLSearchParams();
+        if (page != null) {
+            _queryParams.append("page", page.toString());
+        }
+
+        if (q != null) {
+            _queryParams.append("q", q);
+        }
+
+        if (batch != null) {
+            _queryParams.append("batch", batch);
+        }
+
+        if (status != null) {
+            _queryParams.append("status", status);
+        }
+
+        if (industry != null) {
+            _queryParams.append("industry", industry);
+        }
+
+        if (region != null) {
+            _queryParams.append("region", region);
+        }
+
+        if (tags != null) {
+            _queryParams.append("tags", tags);
+        }
+
+        if (isHiring != null) {
+            _queryParams.append("isHiring", isHiring.toString());
+        }
+
+        if (nonprofit != null) {
+            _queryParams.append("nonprofit", nonprofit.toString());
+        }
+
+        if (highlightBlack != null) {
+            _queryParams.append("highlight_black", highlightBlack.toString());
+        }
+
+        if (highlightLatinx != null) {
+            _queryParams.append("highlight_latinx", highlightLatinx.toString());
+        }
+
+        if (highlightWomen != null) {
+            _queryParams.append("highlight_women", highlightWomen.toString());
+        }
+
         const _response = await core.fetcher({
             url: urlJoin(this.options.environment ?? environments.YcombinatorApiEnvironment.Production, "/companies"),
             method: "GET",
+            queryParameters: _queryParams,
         });
         if (_response.ok) {
             return await serializers.AllCompanies.parse(_response.body as serializers.AllCompanies.Raw);

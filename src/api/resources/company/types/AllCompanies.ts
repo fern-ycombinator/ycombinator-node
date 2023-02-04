@@ -6,4 +6,6 @@ import { YcombinatorApi } from "@fern-api/ycombinator";
 
 export interface AllCompanies {
     companies: YcombinatorApi.Company[];
+    page: number;
+    totalPages: number;
 }

@@ -11,10 +11,14 @@ export const AllCompanies: core.serialization.ObjectSchema<serializers.AllCompan
         companies: core.serialization.list(
             core.serialization.lazyObject(async () => (await import("../../..")).Company)
         ),
+        page: core.serialization.number(),
+        totalPages: core.serialization.number(),
     });
 
 export declare namespace AllCompanies {
     interface Raw {
         companies: serializers.Company.Raw[];
+        page: number;
+        totalPages: number;
     }
 }
